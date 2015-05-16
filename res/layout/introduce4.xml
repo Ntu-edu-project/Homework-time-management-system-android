@@ -1,0 +1,33 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/app_name" />
+
+    <com.ntuedu.homeworktimemanager.widget.RippleView
+        android:id="@+id/more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="68dp"
+        ripple:rv_type="rectangle" >
+
+        <Button
+            android:id="@+id/start_app_bt"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="#5CACEE"
+            android:text="@string/start_app"
+            android:textColor="@android:color/white" />
+    </com.ntuedu.homeworktimemanager.widget.RippleView>
+
+</RelativeLayout>
