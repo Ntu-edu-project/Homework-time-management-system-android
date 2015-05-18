@@ -23,7 +23,7 @@ import com.ntuedu.homeworktimemanager.ui.MainActivity;
 @SuppressWarnings("deprecation")
 public class InitActivity extends Activity {
 
-	// æ€»ä»‹ç»é¡µé¢æ•°
+	// ×Ü½éÉÜÒ³ÃæÊı
 	private int pageCount = 5;
 
 	//
@@ -36,11 +36,11 @@ public class InitActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.init);
+		setContentView(R.layout.init_activity);
 
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-		// ä¸æ˜¯ç¬¬ä¸€æ¬¡å¯åŠ¨åˆ™è¿›å…¥ä¸»ç•Œé¢
+		// ²»ÊÇµÚÒ»´ÎÆô¶¯Ôò½øÈëÖ÷½çÃæ
 		if (!isFirstIn()) {
 			enterMain();
 		}
@@ -59,7 +59,7 @@ public class InitActivity extends Activity {
 							getPackageName()), null));
 		}
 
-		// è·å–æœ€åä¸€é¡µçš„Button
+		// »ñÈ¡×îºóÒ»Ò³µÄButton
 		start_app_bt = (Button) views.get(pageCount - 1).findViewById(
 				R.id.start_app_bt);
 
@@ -83,7 +83,7 @@ public class InitActivity extends Activity {
 			}
 		});
 
-		// åˆå§‹åŒ–åº•éƒ¨åœ†ç‚¹
+		// ³õÊ¼»¯µ×²¿Ô²µã
 		mPage[0] = (ImageView) findViewById(R.id.page0);
 		mPage[1] = (ImageView) findViewById(R.id.page1);
 		mPage[2] = (ImageView) findViewById(R.id.page2);
@@ -147,7 +147,7 @@ public class InitActivity extends Activity {
 		this.finish();
 	}
 
-	// åˆ¤æ–­æ˜¯å¦é¦–æ¬¡å¯åŠ¨
+	// ÅĞ¶ÏÊÇ·ñÊ×´ÎÆô¶¯
 	private boolean isFirstIn() {
 		return sharedPreferences.getBoolean(KEY_FIRST_IN, true);
 	}

@@ -7,12 +7,12 @@ import org.apache.http.params.HttpConnectionParams;
 @SuppressWarnings("deprecation")
 public class MyHttpClient extends DefaultHttpClient {
 	/**
-	 * 鑾峰彇 HttpClient,涓昏鏄皝瑁呬簡瓒呮椂璁剧疆
+	 * 获取 HttpClient,主要是封装了超时设置
 	 * 
 	 * @param rTimeOut
-	 *            璇锋眰瓒呮椂
+	 *            请求超时
 	 * @param sTimeOut
-	 *            绛夊緟鏁版嵁瓒呮椂
+	 *            等待数据超时
 	 * @return
 	 */
 	public DefaultHttpClient getHttpClient(int rTimeOut, int sTimeOut) {

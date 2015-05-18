@@ -3,5 +3,7 @@
 
     <string name="app_name">作业时间管理系统</string>
     <string name="start_app">点击进入</string>
+    <string name="drawer_open">打开</string>
+    <string name="drawer_close">关闭</string>
 
 </resources>

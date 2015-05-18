@@ -7,4 +7,6 @@
     <color name="pink">#e91e63</color>
     <color name="pink_pressed">#ec407a</color>
 
+    <color name="background_tab_pressed">#6633B5E5</color>
+
 </resources>
