@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +15,6 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -34,7 +34,6 @@ import com.ntuedu.homeworktimemanager.widget.PagerSlidingTabStrip;
 public class MainActivity extends ActionBarActivity {
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
-	private ShareActionProvider mShareActionProvider;
 	private PagerSlidingTabStrip mPagerSlidingTabStrip;
 	private ViewPager mViewPager;
 	private Toolbar mToolbar;
@@ -82,14 +81,14 @@ public class MainActivity extends ActionBarActivity {
 				R.layout.siderbar_header, lvLeftMenu, false);
 
 		lvLeftMenu.addHeaderView(headerContainer);
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 		listItems = new ArrayList<HashMap<String, Object>>();
-		for (int i = 0; i < 10; i++) {
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("ItemTitle", "设置");
-			map.put("ItemImage", R.drawable.ic_drawer_settings);
-			listItems.add(map);
-		}
+
+		addLeftMenu(getResources().getString(R.string.settings),
+				R.drawable.ic_drawer_settings);
+		addLeftMenu(getResources().getString(R.string.help),
+				R.drawable.ic_drawer_guide);
+		addLeftMenu(getResources().getString(R.string.exit),
+				R.drawable.ic_drawer_exit);
 
 		listItemAdapter = new SimpleAdapter(this, listItems,
 				R.layout.siderbar_lisetview_item, new String[] { "ItemTitle",
@@ -101,18 +100,36 @@ public class MainActivity extends ActionBarActivity {
 
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-				// TODO 自动生成的方法存根
+				Intent intent = null;
+				switch (position) {
+				case 0:
+					intent = new Intent(MainActivity.this, LoginActivity.class);
 
-				Toast.makeText(MainActivity.this,position+"", 1000).show();
+					// intent = new Intent(MainActivity.this,
+					// UserActivity.class);
 
+					break;
+				case 1:
+					intent = new Intent(MainActivity.this,
+							SettingActivity.class);
+
+					break;
+				case 2:
+					intent = new Intent(MainActivity.this, HelpActivity.class);
+					break;
+				case 3:
+					MainActivity.this.finish();
+					return;
+				default:
+					break;
+				}
+				startActivity(intent);
 			}
 
 		});
-		
-		
-		
-		
+
 		// 设置首页
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 				mToolbar, R.string.drawer_open, R.string.drawer_close);
 		mDrawerToggle.syncState();
@@ -167,15 +184,17 @@ public class MainActivity extends ActionBarActivity {
 		mPagerSlidingTabStrip.setTextColor(Color.BLACK);
 	}
 
+	private void addLeftMenu(String title, int res) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("ItemTitle", title);
+		map.put("ItemImage", res);
+		listItems.add(map);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
-		/* ShareActionProvider配置 */
-		// mShareActionProvider = (ShareActionProvider) MenuItemCompat
-		// .getActionProvider(menu.findItem(R.id.action_share));
-		// Intent intent = new Intent(Intent.ACTION_SEND);
-		// intent.setType("text/*");
-		// mShareActionProvider.setShareIntent(intent);
+
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -197,7 +216,8 @@ public class MainActivity extends ActionBarActivity {
 	/* ***************FragmentPagerAdapter***************** */
 	public class MyPagerAdapter extends FragmentPagerAdapter {
 
-		private final String[] TITLES = { "作业时间", "成绩管理", "时间与成绩" };
+		private final String[] TITLES = getResources().getStringArray(
+				R.array.tab_title);
 
 		public MyPagerAdapter(FragmentManager fm) {
 			super(fm);
@@ -216,7 +236,16 @@ public class MainActivity extends ActionBarActivity {
 		@Override
 		public Fragment getItem(int position) {
 
-			return Fragement1.newInstance(position);
+			switch (position) {
+			case 0:
+				return new HomeWorkTimeFrg();
+			case 1:
+				return new GradeFrg();
+			case 2:
+				return new TimeAndGradeFrg();
+			default:
+				return null;
+			}
 
 		}
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="tab_title">
+        <item>@string/homework_time</item>
+        <item>@string/grade</item>
+        <item>@string/time_grade</item>
+    </string-array>
+
+</resources>

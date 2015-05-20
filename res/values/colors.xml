@@ -7,6 +7,9 @@
     <color name="pink">#e91e63</color>
     <color name="pink_pressed">#ec407a</color>
 
+    <!-- Other Color -->
+    <color name="theme_blue">#6699FF</color>
+    <color name="theme_blue_dark">#3A5FCD</color>
     <color name="background_tab_pressed">#6633B5E5</color>
 
 </resources>

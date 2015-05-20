@@ -8,6 +8,9 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="21" />
 
+    <!-- 联网权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -23,9 +26,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ntuedu.homeworktimemanager.ui.MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name=".ui.SettingActivity"
+            android:label="@string/settings"
+            android:theme="@style/ThemeWithActionBar" />
+        <activity
+            android:name=".ui.HelpActivity"
+            android:label="@string/help"
+            android:theme="@style/ThemeWithActionBar" />
+        <activity
+            android:name=".ui.UserActivity"
+            android:label="@string/title_activity_user"
+            android:theme="@style/ThemeWithActionBar" />
+        <activity
+            android:name=".ui.LoginActivity"
+            android:label="@string/login"
+            android:theme="@style/ThemeWithActionBar" />
     </application>
 
 </manifest>

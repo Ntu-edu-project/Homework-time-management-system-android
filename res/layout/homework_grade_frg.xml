@@ -32,6 +32,12 @@
                     card_view:cardBackgroundColor="@android:color/white"
                     card_view:cardCornerRadius="4dp"
                     card_view:cardElevation="4dp" >
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2c"
+                         />
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
