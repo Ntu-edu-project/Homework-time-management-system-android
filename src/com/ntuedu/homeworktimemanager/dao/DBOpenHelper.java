@@ -6,9 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
 	private static final String DBNAME = "homeworktimemanager.db";
-	
-	//"CREATE TABLE IF NOT EXISTS Patient (id integer primary key autoincrement, studentId varchar(20))"
-	private String sql = "";
+
+	// "CREATE TABLE IF NOT EXISTS Patient (id integer primary key autoincrement, Sno varchar(20), Sname varchar(45))"
+	private String sqlStudent = "CREATE TABLE IF NOT EXISTS student (id integer primary key autoincrement, Sno varchar(20), Sname varchar(45))";
 	private static final int VERSION = 1;
 
 	public DBOpenHelper(Context context) {
@@ -17,7 +17,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(sql);
+		db.execSQL(sqlStudent);
 	}
 
 	@Override

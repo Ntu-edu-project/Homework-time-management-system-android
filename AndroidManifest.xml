@@ -38,12 +38,12 @@
             android:label="@string/help"
             android:theme="@style/ThemeWithActionBar" />
         <activity
-            android:name=".ui.UserActivity"
-            android:label="@string/title_activity_user"
-            android:theme="@style/ThemeWithActionBar" />
-        <activity
             android:name=".ui.LoginActivity"
             android:label="@string/login"
+            android:theme="@style/ThemeWithActionBar" />
+        <activity
+            android:name=".ui.AccountActivity"
+            android:label="@string/account_manager"
             android:theme="@style/ThemeWithActionBar" />
     </application>
 

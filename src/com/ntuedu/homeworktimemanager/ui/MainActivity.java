@@ -25,9 +25,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ntuedu.homeworktimemanager.R;
+import com.ntuedu.homeworktimemanager.dao.AccountDao;
+import com.ntuedu.homeworktimemanager.dao.AccountDaoImpl;
+import com.ntuedu.homeworktimemanager.dao.Student;
 import com.ntuedu.homeworktimemanager.widget.PagerSlidingTabStrip;
 
 @SuppressWarnings("deprecation")
@@ -42,11 +46,14 @@ public class MainActivity extends ActionBarActivity {
 	private ArrayList<HashMap<String, Object>> listItems;
 	private SimpleAdapter listItemAdapter;
 
+	AccountDao accountDao = new AccountDaoImpl(this);
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.homework_time_main);
 		initViews();
+
 	}
 
 	@SuppressLint("ShowToast")
@@ -80,6 +87,15 @@ public class MainActivity extends ActionBarActivity {
 		View headerContainer = LayoutInflater.from(this).inflate(
 				R.layout.siderbar_header, lvLeftMenu, false);
 
+		TextView textView = (TextView) headerContainer
+				.findViewById(R.id.stu_name);
+
+		if (accountDao.lookupStudent() != null) {
+			textView.setText(accountDao.lookupStudent().getsName());
+		} else {
+			textView.setText("ÇëµÇÂ¼");
+		}
+
 		lvLeftMenu.addHeaderView(headerContainer);
 		listItems = new ArrayList<HashMap<String, Object>>();
 
@@ -103,10 +119,17 @@ public class MainActivity extends ActionBarActivity {
 				Intent intent = null;
 				switch (position) {
 				case 0:
-					intent = new Intent(MainActivity.this, LoginActivity.class);
 
-					// intent = new Intent(MainActivity.this,
-					// UserActivity.class);
+					if (accountDao.lookupStudent() != null) {
+						intent = new Intent(MainActivity.this,
+								AccountActivity.class);
+					} else {
+						intent = new Intent(MainActivity.this,
+								LoginActivity.class);
+						startActivity(intent);
+						MainActivity.this.finish();
+						return;
+					}
 
 					break;
 				case 1:

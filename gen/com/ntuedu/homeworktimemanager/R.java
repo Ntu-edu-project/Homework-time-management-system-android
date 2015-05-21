@@ -2435,7 +2435,7 @@ containing a value of this type.
         public static final int alertTitle=0x7f0a0039;
         public static final int always=0x7f0a001b;
         public static final int beginning=0x7f0a0022;
-        public static final int button1=0x7f0a005d;
+        public static final int btlogin=0x7f0a005d;
         public static final int buttonPanel=0x7f0a003f;
         public static final int card_view=0x7f0a005f;
         public static final int checkbox=0x7f0a0041;
@@ -2452,10 +2452,10 @@ containing a value of this type.
         public static final int drawer=0x7f0a0060;
         public static final int drawer_view=0x7f0a0063;
         public static final int dropdown=0x7f0a0021;
-        public static final int editText1=0x7f0a005b;
-        public static final int editText2=0x7f0a005c;
         public static final int edit_query=0x7f0a004b;
         public static final int end=0x7f0a0023;
+        public static final int etPw=0x7f0a005c;
+        public static final int etSno=0x7f0a005b;
         public static final int expand_activities_button=0x7f0a0030;
         public static final int expanded_menu=0x7f0a0040;
         /**  FloatingActionButton 
@@ -2590,9 +2590,9 @@ containing a value of this type.
         public static final int abc_search_view=0x7f030016;
         public static final int abc_select_dialog_material=0x7f030017;
         public static final int abc_simple_dropdown_hint=0x7f030018;
-        public static final int activity_help=0x7f030019;
-        public static final int activity_login=0x7f03001a;
-        public static final int activity_user=0x7f03001b;
+        public static final int activity_account=0x7f030019;
+        public static final int activity_help=0x7f03001a;
+        public static final int activity_login=0x7f03001b;
         public static final int grade_frg=0x7f03001c;
         public static final int homework_frg=0x7f03001d;
         public static final int homework_grade_frg=0x7f03001e;
@@ -2613,11 +2613,7 @@ containing a value of this type.
         public static final int toolbar=0x7f03002d;
     }
     public static final class menu {
-        public static final int help=0x7f0e0000;
-        public static final int login=0x7f0e0001;
-        public static final int main=0x7f0e0002;
-        public static final int setting=0x7f0e0003;
-        public static final int user=0x7f0e0004;
+        public static final int main=0x7f0e0000;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -2679,33 +2675,31 @@ containing a value of this type.
         /**  Content description for the Toolbar icon used to collapse an expanded action mode. [CHAR LIMIT=NONE] 
          */
         public static final int abc_toolbar_collapse_description=0x7f0b0004;
+        public static final int account_manager=0x7f0b0029;
         public static final int action_settings=0x7f0b0013;
         public static final int app_name=0x7f0b0011;
-        public static final int cancle=0x7f0b002b;
-        public static final int chk_update=0x7f0b0023;
-        public static final int cur_version=0x7f0b0026;
-        public static final int det_new=0x7f0b0028;
-        public static final int drawer_close=0x7f0b001b;
-        public static final int drawer_open=0x7f0b001a;
-        public static final int exit=0x7f0b001f;
-        public static final int grade=0x7f0b001d;
+        public static final int cancle=0x7f0b0028;
+        public static final int chk_update=0x7f0b001e;
+        public static final int cur_version=0x7f0b0021;
+        public static final int det_new=0x7f0b0023;
+        public static final int drawer_close=0x7f0b0016;
+        public static final int drawer_open=0x7f0b0015;
+        public static final int exit=0x7f0b001a;
+        public static final int grade=0x7f0b0018;
         public static final int hello_world=0x7f0b0012;
-        public static final int help=0x7f0b0020;
-        public static final int homework_time=0x7f0b001c;
-        public static final int is_new=0x7f0b0025;
-        public static final int is_old=0x7f0b0024;
-        public static final int login=0x7f0b0021;
-        public static final int net_error=0x7f0b0029;
-        public static final int new_version=0x7f0b0027;
-        public static final int ok=0x7f0b002a;
-        public static final int settings=0x7f0b0022;
-        public static final int start_app=0x7f0b0019;
-        public static final int time_grade=0x7f0b001e;
-        public static final int title_activity_help=0x7f0b0016;
-        public static final int title_activity_login=0x7f0b0018;
-        public static final int title_activity_main=0x7f0b0014;
-        public static final int title_activity_setting=0x7f0b0015;
-        public static final int title_activity_user=0x7f0b0017;
+        public static final int help=0x7f0b001b;
+        public static final int homework_time=0x7f0b0017;
+        public static final int is_new=0x7f0b0020;
+        public static final int is_old=0x7f0b001f;
+        public static final int login=0x7f0b001c;
+        public static final int login_error=0x7f0b0025;
+        public static final int logining=0x7f0b0026;
+        public static final int net_error=0x7f0b0024;
+        public static final int new_version=0x7f0b0022;
+        public static final int ok=0x7f0b0027;
+        public static final int settings=0x7f0b001d;
+        public static final int start_app=0x7f0b0014;
+        public static final int time_grade=0x7f0b0019;
     }
     public static final class style {
         public static final int AlertDialog_AppCompat=0x7f0c0040;

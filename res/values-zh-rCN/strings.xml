@@ -19,7 +19,10 @@
     <string name="new_version">最新版本：</string>
     <string name="det_new">正在检测更新...</string>
     <string name="net_error">网络故障</string>
+    <string name="login_error">登陆失败</string>
+    <string name="logining">正在失败</string>
     <string name="ok">确认</string>
     <string name="cancle">取消</string>
+    <string name="account_manager">账户管理</string>
 
 </resources>
