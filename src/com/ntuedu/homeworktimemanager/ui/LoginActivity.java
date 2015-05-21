@@ -152,7 +152,7 @@ public class LoginActivity extends ActionBarActivity {
 		String sNo = jsonObject.get("sNo").toString();
 		String sName = jsonObject.get("sName").toString();
 		Student student = new Student(sNo, sName);
-		//´æÈë±¾µØ
+		//å­˜å…¥æœ¬åœ°æ•°æ®
 		accountDao.addStudent(student);
 	}
 
