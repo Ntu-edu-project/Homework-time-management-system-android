@@ -8,9 +8,35 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ntuedu.homeworktimemanager.AccountActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cur_account" />
+
+            <TextView
+                android:id="@+id/account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cur_account" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bt_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/logout" />
+    </RelativeLayout>
 
 </RelativeLayout>

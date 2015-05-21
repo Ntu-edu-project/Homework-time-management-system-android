@@ -227,6 +227,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 		getViewTreeObserver().addOnGlobalLayoutListener(
 				new OnGlobalLayoutListener() {
 
+					@SuppressWarnings("deprecation")
 					@Override
 					public void onGlobalLayout() {
 						getViewTreeObserver()

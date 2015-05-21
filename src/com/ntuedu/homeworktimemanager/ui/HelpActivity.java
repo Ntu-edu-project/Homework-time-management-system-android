@@ -1,11 +1,12 @@
 package com.ntuedu.homeworktimemanager.ui;
 
-import com.ntuedu.homeworktimemanager.R;
-
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
+import com.ntuedu.homeworktimemanager.R;
+
+@SuppressWarnings("deprecation")
 public class HelpActivity extends ActionBarActivity {
 
 	@Override

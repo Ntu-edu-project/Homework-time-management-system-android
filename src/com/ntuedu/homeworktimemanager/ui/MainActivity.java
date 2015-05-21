@@ -31,7 +31,6 @@ import android.widget.Toast;
 import com.ntuedu.homeworktimemanager.R;
 import com.ntuedu.homeworktimemanager.dao.AccountDao;
 import com.ntuedu.homeworktimemanager.dao.AccountDaoImpl;
-import com.ntuedu.homeworktimemanager.dao.Student;
 import com.ntuedu.homeworktimemanager.widget.PagerSlidingTabStrip;
 
 @SuppressWarnings("deprecation")
@@ -93,7 +92,7 @@ public class MainActivity extends ActionBarActivity {
 		if (accountDao.lookupStudent() != null) {
 			textView.setText(accountDao.lookupStudent().getsName());
 		} else {
-			textView.setText("ÇëµÇÂ¼");
+			textView.setText(getResources().getString(R.string.ple_login));
 		}
 
 		lvLeftMenu.addHeaderView(headerContainer);
@@ -123,6 +122,9 @@ public class MainActivity extends ActionBarActivity {
 					if (accountDao.lookupStudent() != null) {
 						intent = new Intent(MainActivity.this,
 								AccountActivity.class);
+						startActivity(intent);
+						MainActivity.this.finish();
+						return;
 					} else {
 						intent = new Intent(MainActivity.this,
 								LoginActivity.class);
@@ -131,7 +133,6 @@ public class MainActivity extends ActionBarActivity {
 						return;
 					}
 
-					break;
 				case 1:
 					intent = new Intent(MainActivity.this,
 							SettingActivity.class);

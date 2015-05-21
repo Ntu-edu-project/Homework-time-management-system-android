@@ -1,5 +1,8 @@
 package com.ntuedu.homeworktimemanager.ui;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -16,6 +19,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.ntuedu.homeworktimemanager.Constant;
 import com.ntuedu.homeworktimemanager.R;
 import com.ntuedu.homeworktimemanager.service.NetTools;
 
@@ -24,8 +28,11 @@ public class SettingActivity extends ActionBarActivity {
 
 	private String KEY_CHK_UPDATE = "chk_update";
 	private Preference pre_chk_update;
-	private String new_version;
 	private ProgressDialog progressDialog;
+
+	private String new_version;
+	private String url;
+	private String info;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,29 +92,24 @@ public class SettingActivity extends ActionBarActivity {
 
 			case 0:
 				Toast.makeText(getApplicationContext(),
-						getResources().getString(R.string.net_error), Toast.LENGTH_SHORT)
-						.show();
+						getResources().getString(R.string.net_error),
+						Toast.LENGTH_SHORT).show();
 				break;
 			case 1:
+
 				if (getCurrentVersion().equals(new_version)) {
 
 					Toast.makeText(getApplicationContext(),
-							getResources().getString(R.string.is_new), Toast.LENGTH_SHORT)
-							.show();
+							getResources().getString(R.string.is_new),
+							Toast.LENGTH_SHORT).show();
 				} else {
 					if (!isFinishing()) {
 						new AlertDialog.Builder(SettingActivity.this)
 								.setTitle(
 										getResources().getString(
-												R.string.is_old))
-								.setMessage(
-										getResources().getString(
-												R.string.cur_version)
-												+ getCurrentVersion()
-												+ "\n"
-												+ getResources().getString(
-														R.string.new_version)
-												+ new_version + "\n")
+												R.string.is_old)
+												+ "V" + new_version)
+								.setMessage(info)
 								.setNegativeButton(
 										getResources().getString(
 												R.string.cancle),
@@ -120,14 +122,13 @@ public class SettingActivity extends ActionBarActivity {
 											}
 										})
 								.setPositiveButton(
-										getResources().getString(R.string.ok),
+										getResources().getString(R.string.down),
 										new DialogInterface.OnClickListener() {
 											@Override
 											public void onClick(
 													DialogInterface dialog,
 													int which) {
-												Uri uri = Uri
-														.parse("http://www.baidu.com");
+												Uri uri = Uri.parse(url);
 												Intent intent = new Intent(
 														Intent.ACTION_VIEW, uri);
 												startActivity(intent);
@@ -146,14 +147,32 @@ public class SettingActivity extends ActionBarActivity {
 	public int checkForUpdate() {
 
 		try {
-			new_version = NetTools
-					.getcontent("https://raw.githubusercontent.com/ghbhaha/Test/master/README.md");
+			String json = NetTools.getcontent(Constant.UPDATE_URL);
+
+			doParseJson(json);
 			return 1;
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return 0;
+		}
+
+	}
+
+	public void doParseJson(String json) {
+
+		JSONArray array;
+		try {
+			array = new JSONArray(json);
+			JSONObject jsonObject = array.getJSONObject(0);
+			new_version = jsonObject.getString("version");
+			url = jsonObject.getString("url");
+			info = jsonObject.getString("info");
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}

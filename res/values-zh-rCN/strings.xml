@@ -20,9 +20,11 @@
     <string name="det_new">正在检测更新...</string>
     <string name="net_error">网络故障</string>
     <string name="login_error">登陆失败</string>
-    <string name="logining">正在失败</string>
-    <string name="ok">确认</string>
+    <string name="logining">正在登陆</string>
+    <string name="logout">登出</string>
+    <string name="down">下载</string>
     <string name="cancle">取消</string>
     <string name="account_manager">账户管理</string>
-
+    <string name="cur_account">当前账户</string>
+    <string name="ple_login">请登录</string>
 </resources>
