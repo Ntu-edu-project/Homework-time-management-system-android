@@ -1,4 +1,4 @@
-package com.ntuedu.homeworktimemanager.service;
+package com.ntuedu.homeworktimemanager.util;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class NetTools {
+public class StringRequestUtil {
 
 	public static String getcontent(String path) throws Exception {
 		// TODO 自动生成的方法存根

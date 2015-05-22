@@ -1,6 +1,5 @@
 package com.ntuedu.homeworktimemanager.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
@@ -9,8 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ntuedu.homeworktimemanager.R;
-import com.ntuedu.homeworktimemanager.dao.AccountDao;
-import com.ntuedu.homeworktimemanager.dao.AccountDaoImpl;
+import com.ntuedu.homeworktimemanager.db.AccountDao;
+import com.ntuedu.homeworktimemanager.db.AccountDaoImpl;
 
 @SuppressWarnings("deprecation")
 public class AccountActivity extends ActionBarActivity {
@@ -39,23 +38,17 @@ public class AccountActivity extends ActionBarActivity {
 				// TODO Auto-generated method stub
 
 				accountDao.clearStudent();
-				returnMain();
+				onBackPressed();
 			}
 		});
 
-	}
-
-	private void returnMain() {
-		Intent intent = new Intent(AccountActivity.this, MainActivity.class);
-		startActivity(intent);
-		this.finish();
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.getItemId() == android.R.id.home) {
-			returnMain();
+			onBackPressed();
 		}
 		return super.onOptionsItemSelected(item);
 	}

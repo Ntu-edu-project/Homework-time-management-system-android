@@ -11,7 +11,7 @@
     <TextView
         android:id="@+id/logintmp"
         android:layout_width="3dp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/logintv"
@@ -31,21 +31,52 @@
         android:layout_marginTop="22dp"
         android:orientation="vertical" >
 
-        <EditText
-            android:id="@+id/etSno"
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="学号" />
+            android:layout_height="wrap_content" >
 
-        <EditText
-            android:id="@+id/etPw"
+            <EditText
+                android:id="@+id/etSno"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="学号"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/tvSno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/etSno"
+                android:text="@string/ple_enter_sno"
+                android:textColor="@android:color/holo_red_light"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="密码"
-            android:inputType="textPassword" />
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/etPw"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="密码"
+                android:inputType="textPassword" />
+
+            <TextView
+                android:id="@+id/tvPw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/etPw"
+                android:text="@string/ple_enter_pw"
+                android:textColor="@android:color/holo_red_light"
+                android:visibility="gone" />
+        </RelativeLayout>
     </LinearLayout>
 
     <Button

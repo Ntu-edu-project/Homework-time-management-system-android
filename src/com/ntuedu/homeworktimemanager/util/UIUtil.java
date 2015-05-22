@@ -1,4 +1,4 @@
-package com.ntuedu.homeworktimemanager.service;
+package com.ntuedu.homeworktimemanager.util;
 
 import android.app.Activity;
 import android.content.Context;

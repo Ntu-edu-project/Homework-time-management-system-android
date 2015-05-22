@@ -14,28 +14,34 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ntuedu.homeworktimemanager.Constant;
 import com.ntuedu.homeworktimemanager.R;
-import com.ntuedu.homeworktimemanager.dao.AccountDao;
-import com.ntuedu.homeworktimemanager.dao.AccountDaoImpl;
-import com.ntuedu.homeworktimemanager.dao.Student;
-import com.ntuedu.homeworktimemanager.service.MyHttpClient;
+import com.ntuedu.homeworktimemanager.db.AccountDao;
+import com.ntuedu.homeworktimemanager.db.AccountDaoImpl;
+import com.ntuedu.homeworktimemanager.model.Student;
+import com.ntuedu.homeworktimemanager.util.MyHttpClient;
 
 @SuppressWarnings("deprecation")
 public class LoginActivity extends ActionBarActivity {
 
 	private EditText etSno;
 	private EditText etPw;
+
+	private TextView tvSno;
+	private TextView tvPw;
+
 	private Button btLogin;
 
 	private String sno;
@@ -57,6 +63,56 @@ public class LoginActivity extends ActionBarActivity {
 
 		etSno = (EditText) findViewById(R.id.etSno);
 		etPw = (EditText) findViewById(R.id.etPw);
+
+		tvSno = (TextView) findViewById(R.id.tvSno);
+		tvPw = (TextView) findViewById(R.id.tvPw);
+
+		etSno.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				tvSno.setVisibility(View.GONE);
+			}
+		});
+
+		etPw.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				tvPw.setVisibility(View.GONE);
+			}
+		});
+
 		btLogin = (Button) findViewById(R.id.btlogin);
 
 		btLogin.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +122,22 @@ public class LoginActivity extends ActionBarActivity {
 				// TODO Auto-generated method stub
 				sno = etSno.getText().toString();
 				pw = etPw.getText().toString();
+
+				if (sno.isEmpty() && pw.isEmpty()) {
+					tvSno.setVisibility(View.VISIBLE);
+					tvPw.setVisibility(View.VISIBLE);
+					return;
+				}
+
+				if (sno.isEmpty()) {
+					tvSno.setVisibility(View.VISIBLE);
+					return;
+				}
+
+				if (pw.isEmpty()) {
+					tvPw.setVisibility(View.VISIBLE);
+					return;
+				}
 
 				Login login = new Login();
 				login.execute();
@@ -102,7 +174,7 @@ public class LoginActivity extends ActionBarActivity {
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 1:
-				returnMain();
+				onBackPressed();
 				break;
 			case 2:
 				Toast.makeText(LoginActivity.this,
@@ -135,7 +207,7 @@ public class LoginActivity extends ActionBarActivity {
 
 			}
 
-			if (!result.equals(0)) {
+			if (!result.equals("0")) {
 				doSaveLocal(result);
 			}
 
@@ -152,21 +224,15 @@ public class LoginActivity extends ActionBarActivity {
 		String sNo = jsonObject.get("sNo").toString();
 		String sName = jsonObject.get("sName").toString();
 		Student student = new Student(sNo, sName);
-		//瀛樺叆鏈湴鏁版嵁
+		// 存入本地数据
 		accountDao.addStudent(student);
-	}
-
-	private void returnMain() {
-		Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-		startActivity(intent);
-		LoginActivity.this.finish();
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.getItemId() == android.R.id.home) {
-			returnMain();
+			onBackPressed();
 		}
 		return super.onOptionsItemSelected(item);
 	}

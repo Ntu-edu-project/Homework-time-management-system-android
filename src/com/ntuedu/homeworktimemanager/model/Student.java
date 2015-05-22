@@ -1,4 +1,4 @@
-package com.ntuedu.homeworktimemanager.dao;
+package com.ntuedu.homeworktimemanager.model;
 
 public class Student {
 	private String sNo;

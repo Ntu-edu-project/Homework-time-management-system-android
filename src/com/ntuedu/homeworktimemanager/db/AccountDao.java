@@ -1,4 +1,6 @@
-package com.ntuedu.homeworktimemanager.dao;
+package com.ntuedu.homeworktimemanager.db;
+
+import com.ntuedu.homeworktimemanager.model.Student;
 
 
 public interface AccountDao {

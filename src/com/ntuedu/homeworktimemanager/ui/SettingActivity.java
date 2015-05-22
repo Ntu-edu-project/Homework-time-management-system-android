@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.ntuedu.homeworktimemanager.Constant;
 import com.ntuedu.homeworktimemanager.R;
-import com.ntuedu.homeworktimemanager.service.NetTools;
+import com.ntuedu.homeworktimemanager.util.StringRequestUtil;
 
 @SuppressWarnings("deprecation")
 public class SettingActivity extends ActionBarActivity {
@@ -147,7 +147,7 @@ public class SettingActivity extends ActionBarActivity {
 	public int checkForUpdate() {
 
 		try {
-			String json = NetTools.getcontent(Constant.UPDATE_URL);
+			String json = StringRequestUtil.getcontent(Constant.UPDATE_URL);
 
 			doParseJson(json);
 			return 1;

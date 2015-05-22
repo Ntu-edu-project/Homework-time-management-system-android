@@ -27,4 +27,7 @@
     <string name="account_manager">账户管理</string>
     <string name="cur_account">当前账户</string>
     <string name="ple_login">请登录</string>
+    <string name="ple_enter_sno">请输入学号</string>
+    <string name="ple_enter_pw">请输入密码</string>
+
 </resources>

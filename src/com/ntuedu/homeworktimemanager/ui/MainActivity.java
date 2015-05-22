@@ -29,8 +29,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ntuedu.homeworktimemanager.R;
-import com.ntuedu.homeworktimemanager.dao.AccountDao;
-import com.ntuedu.homeworktimemanager.dao.AccountDaoImpl;
+import com.ntuedu.homeworktimemanager.db.AccountDao;
+import com.ntuedu.homeworktimemanager.db.AccountDaoImpl;
 import com.ntuedu.homeworktimemanager.widget.PagerSlidingTabStrip;
 
 @SuppressWarnings("deprecation")
@@ -41,6 +41,7 @@ public class MainActivity extends ActionBarActivity {
 	private ViewPager mViewPager;
 	private Toolbar mToolbar;
 	private ListView lvLeftMenu;
+	private TextView tvAccount;
 
 	private ArrayList<HashMap<String, Object>> listItems;
 	private SimpleAdapter listItemAdapter;
@@ -52,6 +53,16 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.homework_time_main);
 		initViews();
+
+	}
+
+	//刷新用户
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		super.onRestart();
+
+		refreshAccount();
 
 	}
 
@@ -86,14 +97,10 @@ public class MainActivity extends ActionBarActivity {
 		View headerContainer = LayoutInflater.from(this).inflate(
 				R.layout.siderbar_header, lvLeftMenu, false);
 
-		TextView textView = (TextView) headerContainer
-				.findViewById(R.id.stu_name);
+		tvAccount = (TextView) headerContainer.findViewById(R.id.stu_name);
 
-		if (accountDao.lookupStudent() != null) {
-			textView.setText(accountDao.lookupStudent().getsName());
-		} else {
-			textView.setText(getResources().getString(R.string.ple_login));
-		}
+		// 刷新数据
+		refreshAccount();
 
 		lvLeftMenu.addHeaderView(headerContainer);
 		listItems = new ArrayList<HashMap<String, Object>>();
@@ -122,17 +129,11 @@ public class MainActivity extends ActionBarActivity {
 					if (accountDao.lookupStudent() != null) {
 						intent = new Intent(MainActivity.this,
 								AccountActivity.class);
-						startActivity(intent);
-						MainActivity.this.finish();
-						return;
 					} else {
 						intent = new Intent(MainActivity.this,
 								LoginActivity.class);
-						startActivity(intent);
-						MainActivity.this.finish();
-						return;
 					}
-
+					break;
 				case 1:
 					intent = new Intent(MainActivity.this,
 							SettingActivity.class);
@@ -180,6 +181,15 @@ public class MainActivity extends ActionBarActivity {
 					}
 				});
 		initTabsValue();
+	}
+
+	private void refreshAccount() {
+		if (accountDao.lookupStudent() != null) {
+			tvAccount.setText(accountDao.lookupStudent().getsName());
+		} else {
+			tvAccount.setText(getResources().getString(R.string.ple_login));
+		}
+
 	}
 
 	private void initTabsValue() {

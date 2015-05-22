@@ -1,4 +1,4 @@
-package com.ntuedu.homeworktimemanager.service;
+package com.ntuedu.homeworktimemanager.util;
 
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
