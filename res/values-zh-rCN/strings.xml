@@ -29,5 +29,14 @@
     <string name="ple_login">请登录</string>
     <string name="ple_enter_sno">请输入学号</string>
     <string name="ple_enter_pw">请输入密码</string>
+    <string name="math">数学</string>
+    <string name="chinese">语文</string>
+    <string name="english">英语</string>
+    <string name="hour">时</string>
+    <string name="minute">分</string>
+    <string name="confirm">提交</string>
+    <string name="time_push">时间提交</string>
+    <string name="time_trend">时间趋势</string>
+    <string name="time_ranking">排名情况</string>
 
 </resources>

@@ -31,7 +31,7 @@ public class HomeWorkTimeFrg extends Fragment {
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 
-		View view = inflater.inflate(R.layout.homework_frg,container,false);
+		View view = inflater.inflate(R.layout.homework_time_frg,container,false);
 		
 		return view;
 

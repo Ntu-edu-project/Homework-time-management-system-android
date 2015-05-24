@@ -49,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/etSno"
+                android:layout_marginRight="5dp"
                 android:text="@string/ple_enter_sno"
                 android:textColor="@android:color/holo_red_light"
                 android:visibility="gone" />
@@ -73,6 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/etPw"
+                android:layout_marginRight="5dp"
                 android:text="@string/ple_enter_pw"
                 android:textColor="@android:color/holo_red_light"
                 android:visibility="gone" />

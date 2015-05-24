@@ -21,6 +21,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -47,6 +49,8 @@ public class LoginActivity extends ActionBarActivity {
 	private String sno;
 	private String pw;
 
+	private Animation shakeAnim;
+
 	private ProgressDialog progressDialog;
 
 	AccountDao accountDao = new AccountDaoImpl(this);
@@ -59,6 +63,10 @@ public class LoginActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_login);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+		//x÷·∂∂∂Ø∂Øª≠
+		shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake_y);
+
+		
 		progressDialog = new ProgressDialog(this);
 
 		etSno = (EditText) findViewById(R.id.etSno);
@@ -126,16 +134,20 @@ public class LoginActivity extends ActionBarActivity {
 				if (sno.isEmpty() && pw.isEmpty()) {
 					tvSno.setVisibility(View.VISIBLE);
 					tvPw.setVisibility(View.VISIBLE);
+					tvPw.startAnimation(shakeAnim);
+					tvSno.startAnimation(shakeAnim);
 					return;
 				}
 
 				if (sno.isEmpty()) {
 					tvSno.setVisibility(View.VISIBLE);
+					tvPw.startAnimation(shakeAnim);
 					return;
 				}
 
 				if (pw.isEmpty()) {
 					tvPw.setVisibility(View.VISIBLE);
+					tvPw.startAnimation(shakeAnim);
 					return;
 				}
 
