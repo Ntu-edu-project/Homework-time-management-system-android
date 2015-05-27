@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <PreferenceCategory android:title="@string/settings" >
+    <PreferenceCategory
+        android:layout="@layout/preference_category_widget"
+        android:title="@string/settings" >
         <Preference
             android:key="chk_update"
             android:title="@string/chk_update" />

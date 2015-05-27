@@ -40,7 +40,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="学号"
+                android:hint="@string/hint_sno"
                 android:inputType="number" />
 
             <TextView
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="密码"
+                android:hint="@string/hint_pw"
                 android:inputType="textPassword" />
 
             <TextView

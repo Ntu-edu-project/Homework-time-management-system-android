@@ -272,7 +272,7 @@ public class MainActivity extends ActionBarActivity {
 
 			switch (position) {
 			case 0:
-				return new HomeWorkTimeFrg();
+				return new HomeWorkTimeFrg(mViewPager);
 			case 1:
 				return new GradeFrg();
 			case 2:

@@ -17,7 +17,7 @@
     <string name="is_new">当前已是最新版</string>
     <string name="cur_version">当前版本：</string>
     <string name="new_version">最新版本：</string>
-    <string name="det_new">正在检测更新...</string>
+    <string name="det_new">正在检测更新&#8230;</string>
     <string name="net_error">网络故障</string>
     <string name="login_error">登陆失败</string>
     <string name="logining">正在登陆</string>
@@ -29,10 +29,13 @@
     <string name="ple_login">请登录</string>
     <string name="ple_enter_sno">请输入学号</string>
     <string name="ple_enter_pw">请输入密码</string>
+    <string name="hint_sno">学号</string>
+    <string name="hint_pw">密码</string>
     <string name="math">数学</string>
     <string name="chinese">语文</string>
     <string name="english">英语</string>
     <string name="hour">时</string>
+    <string name="no_name">匿名</string>
     <string name="minute">分</string>
     <string name="confirm">提交</string>
     <string name="time_push">时间提交</string>

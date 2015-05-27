@@ -64,7 +64,7 @@ public class LoginActivity extends ActionBarActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		//x÷·∂∂∂Ø∂Øª≠
-		shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake_y);
+		shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake_x);
 
 		
 		progressDialog = new ProgressDialog(this);
