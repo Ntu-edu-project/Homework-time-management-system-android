@@ -36,10 +36,14 @@
     <string name="english">英语</string>
     <string name="hour">时</string>
     <string name="no_name">匿名</string>
+    <string name="show_name">不匿名</string>
     <string name="minute">分</string>
-    <string name="confirm">提交</string>
+    <string name="submit">提交</string>
+    <string name="submit_success">提交成功</string>
+    <string name="have_submit">已经提交过了</string>
     <string name="time_push">时间提交</string>
     <string name="time_trend">时间趋势</string>
     <string name="time_ranking">排名情况</string>
+    <string name="no_account">当前未登陆</string>
 
 </resources>

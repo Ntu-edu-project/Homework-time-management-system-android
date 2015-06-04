@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.ntuedu.homeworktimemanager.ui.MainActivity;
+import com.ntuedu.homeworktimemanager.activity.MainActivity;
 import com.ntuedu.homeworktimemanager.util.UIUtil;
 
 @SuppressWarnings("deprecation")

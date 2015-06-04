@@ -1,5 +1,6 @@
-package com.ntuedu.homeworktimemanager.ui;
+package com.ntuedu.homeworktimemanager.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
@@ -17,7 +18,7 @@ public class AccountActivity extends ActionBarActivity {
 	private TextView tv_account;
 	private Button bt_logout;
 	AccountDao accountDao = new AccountDaoImpl(this);
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,9 +39,17 @@ public class AccountActivity extends ActionBarActivity {
 				// TODO Auto-generated method stub
 
 				accountDao.clearStudent();
-				onBackPressed();
+				enterMian();
 			}
 		});
+
+	}
+
+	void enterMian() {
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+		overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out); 
+		this.finish();
 
 	}
 
@@ -48,7 +57,7 @@ public class AccountActivity extends ActionBarActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.getItemId() == android.R.id.home) {
-			onBackPressed();
+			enterMian();
 		}
 		return super.onOptionsItemSelected(item);
 	}

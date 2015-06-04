@@ -1,17 +1,25 @@
-package com.ntuedu.homeworktimemanager.ui;
+package com.ntuedu.homeworktimemanager.activity;
+
+import java.io.File;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
+import android.app.DownloadManager;
+import android.app.DownloadManager.Request;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
@@ -34,12 +42,22 @@ public class SettingActivity extends ActionBarActivity {
 	private String url;
 	private String info;
 
+	//下载
+	private DownloadManager dm;
+	private Request request;
+	private long enqueue;
+	private String app_name;
+
+	private DownloadCompleteReceiver receiver;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		// Display the fragment as the main content.
 
+		dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+		receiver = new DownloadCompleteReceiver();
 		getFragmentManager().beginTransaction()
 				.replace(android.R.id.content, new SettingsFragment()).commit();
 
@@ -128,10 +146,23 @@ public class SettingActivity extends ActionBarActivity {
 											public void onClick(
 													DialogInterface dialog,
 													int which) {
-												Uri uri = Uri.parse(url);
-												Intent intent = new Intent(
-														Intent.ACTION_VIEW, uri);
-												startActivity(intent);
+												String sdpath = Environment
+														.getExternalStorageDirectory()
+														+ "/";
+												File file = new File(
+														sdpath
+																+ Environment.DIRECTORY_DOWNLOADS,
+														app_name);
+												if (file.exists()) {
+													file.delete();
+												}
+												request = new Request(Uri
+														.parse(url));
+												request.setDestinationInExternalPublicDir(
+														Environment.DIRECTORY_DOWNLOADS,
+														app_name);
+												request.setTitle(app_name);
+												enqueue = dm.enqueue(request);
 
 											}
 										}).show();
@@ -167,6 +198,8 @@ public class SettingActivity extends ActionBarActivity {
 			array = new JSONArray(json);
 			JSONObject jsonObject = array.getJSONObject(0);
 			new_version = jsonObject.getString("version");
+			app_name = "HomeWorkTimeManager";
+			app_name += ("_v" + new_version + ".apk");
 			url = jsonObject.getString("url");
 			info = jsonObject.getString("info");
 
@@ -190,6 +223,35 @@ public class SettingActivity extends ActionBarActivity {
 		}
 	}
 
+	// 接受下载完成后的intent
+	class DownloadCompleteReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+
+			if (intent.getAction().equals(
+					DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
+				long downId = intent.getLongExtra(
+						DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+				if (downId != enqueue) {
+					return;
+				}
+
+				Intent intentupdate = new Intent();
+				intentupdate.setAction(Intent.ACTION_VIEW);
+				String sdpath = Environment.getExternalStorageDirectory() + "/";
+				File file = new File(sdpath + Environment.DIRECTORY_DOWNLOADS,
+						app_name);
+				if (file.exists()) {
+					intentupdate.setDataAndType(Uri.fromFile(file),
+							"application/vnd.android.package-archive");
+					startActivity(intentupdate);
+				}
+
+			}
+		}
+
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -197,5 +259,19 @@ public class SettingActivity extends ActionBarActivity {
 			onBackPressed();
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	protected void onResume() {
+		registerReceiver(receiver, new IntentFilter(
+				DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+		super.onResume();
+	}
+
+	@Override
+	protected void onDestroy() {
+		if (receiver != null)
+			unregisterReceiver(receiver);
+		super.onDestroy();
 	}
 }

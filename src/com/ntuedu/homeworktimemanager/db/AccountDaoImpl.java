@@ -21,6 +21,7 @@ public class AccountDaoImpl implements AccountDao {
 		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
 		db.execSQL("insert into student(Sno, Sname) values(?,?)", new Object[] {
 				student.getsNo(), student.getsName() });
+		db.close();
 	}
 
 	@Override
@@ -28,6 +29,7 @@ public class AccountDaoImpl implements AccountDao {
 		// TODO Auto-generated method stub
 		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
 		db.execSQL("DELETE FROM student");
+		db.close();
 	}
 
 	@Override
@@ -39,10 +41,10 @@ public class AccountDaoImpl implements AccountDao {
 			String sNo = cursor.getString(cursor.getColumnIndex("Sno"));
 			String sName = cursor.getString(cursor.getColumnIndex("Sname"));
 			Student student = new Student(sNo, sName);
-
+			db.close();
 			return student;
 		}
-
+		db.close();
 		return null;
 	}
 }

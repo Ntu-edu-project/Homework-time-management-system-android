@@ -1,4 +1,4 @@
-package com.ntuedu.homeworktimemanager.ui;
+package com.ntuedu.homeworktimemanager.activity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +17,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,11 @@ import android.widget.Toast;
 import com.ntuedu.homeworktimemanager.R;
 import com.ntuedu.homeworktimemanager.db.AccountDao;
 import com.ntuedu.homeworktimemanager.db.AccountDaoImpl;
+import com.ntuedu.homeworktimemanager.fragment.GradeFrg;
+import com.ntuedu.homeworktimemanager.fragment.HomeWorkTimeFrg;
+import com.ntuedu.homeworktimemanager.fragment.NoAccountFrg;
+import com.ntuedu.homeworktimemanager.fragment.TimeAndGradeFrg;
+import com.ntuedu.homeworktimemanager.widget.DoubleClickExitHelper;
 import com.ntuedu.homeworktimemanager.widget.PagerSlidingTabStrip;
 
 @SuppressWarnings("deprecation")
@@ -43,8 +49,12 @@ public class MainActivity extends ActionBarActivity {
 	private ListView lvLeftMenu;
 	private TextView tvAccount;
 
+	Boolean openOrClose = false;
+
 	private ArrayList<HashMap<String, Object>> listItems;
 	private SimpleAdapter listItemAdapter;
+
+	DoubleClickExitHelper clickExitHelper ;
 
 	AccountDao accountDao = new AccountDaoImpl(this);
 
@@ -53,17 +63,8 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.homework_time_main);
 		initViews();
-
-	}
-
-	//刷新用户
-	@Override
-	protected void onRestart() {
-		// TODO Auto-generated method stub
-		super.onRestart();
-
 		refreshAccount();
-
+		clickExitHelper = new DoubleClickExitHelper(MainActivity.this);
 	}
 
 	@SuppressLint("ShowToast")
@@ -99,9 +100,6 @@ public class MainActivity extends ActionBarActivity {
 
 		tvAccount = (TextView) headerContainer.findViewById(R.id.stu_name);
 
-		// 刷新数据
-		refreshAccount();
-
 		lvLeftMenu.addHeaderView(headerContainer);
 		listItems = new ArrayList<HashMap<String, Object>>();
 
@@ -133,7 +131,9 @@ public class MainActivity extends ActionBarActivity {
 						intent = new Intent(MainActivity.this,
 								LoginActivity.class);
 					}
-					break;
+					startActivity(intent);
+					MainActivity.this.finish();
+					return;
 				case 1:
 					intent = new Intent(MainActivity.this,
 							SettingActivity.class);
@@ -156,13 +156,28 @@ public class MainActivity extends ActionBarActivity {
 		// 设置首页
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-				mToolbar, R.string.drawer_open, R.string.drawer_close);
+				mToolbar, R.string.drawer_open, R.string.drawer_close) {
+
+			public void onDrawerClosed(View view) {
+				super.onDrawerClosed(view);
+				invalidateOptionsMenu();
+				openOrClose = false;
+			}
+
+			public void onDrawerOpened(View drawerView) {
+				super.onDrawerOpened(drawerView);
+				invalidateOptionsMenu();
+				openOrClose = true;
+			}
+		};
 		mDrawerToggle.syncState();
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
 		mPagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		mViewPager = (ViewPager) findViewById(R.id.pager);
+
 		mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+
 		mPagerSlidingTabStrip.setViewPager(mViewPager);
 		mPagerSlidingTabStrip
 				.setOnPageChangeListener(new OnPageChangeListener() {
@@ -234,17 +249,24 @@ public class MainActivity extends ActionBarActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// switch (item.getItemId()) {
-		// case R.id.action_settings:
-		// Toast.makeText(MainActivity.this, "action_settings", 0).show();
-		// break;
-		// case R.id.action_share:
-		// Toast.makeText(MainActivity.this, "action_share", 0).show();
-		// break;
-		// default:
-		// break;
-		// }
+
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
+
+			if (openOrClose == false) {
+				return clickExitHelper.onKeyDown(keyCode, event);
+			} else {
+				mDrawerLayout.closeDrawers();
+			}
+
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	/* ***************FragmentPagerAdapter***************** */
@@ -270,9 +292,13 @@ public class MainActivity extends ActionBarActivity {
 		@Override
 		public Fragment getItem(int position) {
 
+			if (accountDao.lookupStudent() == null) {
+				return new NoAccountFrg();
+			}
 			switch (position) {
 			case 0:
-				return new HomeWorkTimeFrg(mViewPager);
+				return new HomeWorkTimeFrg(mViewPager, accountDao
+						.lookupStudent().getsNo());
 			case 1:
 				return new GradeFrg();
 			case 2:

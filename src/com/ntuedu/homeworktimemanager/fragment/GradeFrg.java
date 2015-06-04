@@ -1,4 +1,4 @@
-package com.ntuedu.homeworktimemanager.ui;
+package com.ntuedu.homeworktimemanager.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 
 import com.ntuedu.homeworktimemanager.R;
 
-public class TimeAndGradeFrg extends Fragment {
+public class GradeFrg extends Fragment {
 
-	public TimeAndGradeFrg() {
+	public GradeFrg() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -27,8 +27,7 @@ public class TimeAndGradeFrg extends Fragment {
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 
-		View view = inflater.inflate(R.layout.homework_grade_frg, container,
-				false);
+		View view = inflater.inflate(R.layout.grade_frg, container, false);
 
 		return view;
 

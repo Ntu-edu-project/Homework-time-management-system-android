@@ -30,8 +30,7 @@
             android:background="@android:color/white"
             app:verticalAxisPosition="right" />
 
-        <!-- 遮盖图表拦截左右滑动事件 -->
-        <LinearLayout
+        <!-- 遮盖图表拦截左右滑动事件 -->        <LinearLayout
             android:id="@+id/front_layout"
             android:layout_width="fill_parent"
             android:layout_height="200dp"

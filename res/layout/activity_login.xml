@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.ntuedu.homeworktimemanager.ui.LoginActivity" >
+    tools:context="com.ntuedu.homeworktimemanager.activity.LoginActivity" >
 
     <TextView
         android:id="@+id/logintmp"
@@ -41,7 +41,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/hint_sno"
-                android:inputType="number" />
+                android:inputType="number"
+                android:text="121001" />
 
             <TextView
                 android:id="@+id/tvSno"
@@ -66,7 +67,8 @@
                 android:layout_marginTop="20dp"
                 android:ems="10"
                 android:hint="@string/hint_pw"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:text="121" />
 
             <TextView
                 android:id="@+id/tvPw"

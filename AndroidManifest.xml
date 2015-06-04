@@ -11,6 +11,9 @@
     <!-- 联网权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- 外部存储写入权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -28,25 +31,24 @@
 
         <!-- 默认不弹出输入法 -->
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.ntuedu.homeworktimemanager.activity.MainActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" >
- 
         </activity>
         <activity
-            android:name=".ui.SettingActivity"
+            android:name="com.ntuedu.homeworktimemanager.activity.SettingActivity"
             android:label="@string/settings"
             android:theme="@style/ThemeWithActionBar" />
         <activity
-            android:name=".ui.HelpActivity"
+            android:name="com.ntuedu.homeworktimemanager.activity.HelpActivity"
             android:label="@string/help"
             android:theme="@style/ThemeWithActionBar" />
         <activity
-            android:name=".ui.LoginActivity"
+            android:name="com.ntuedu.homeworktimemanager.activity.LoginActivity"
             android:label="@string/login"
             android:theme="@style/ThemeWithActionBar" />
         <activity
-            android:name=".ui.AccountActivity"
+            android:name="com.ntuedu.homeworktimemanager.activity.AccountActivity"
             android:label="@string/account_manager"
             android:theme="@style/ThemeWithActionBar" />
     </application>

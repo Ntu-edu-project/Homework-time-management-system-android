@@ -1,4 +1,4 @@
-package com.ntuedu.homeworktimemanager.ui;
+package com.ntuedu.homeworktimemanager.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;

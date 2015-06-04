@@ -1,4 +1,4 @@
-package com.ntuedu.homeworktimemanager.ui;
+package com.ntuedu.homeworktimemanager.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -186,7 +187,7 @@ public class LoginActivity extends ActionBarActivity {
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 1:
-				onBackPressed();
+				enterMian();
 				break;
 			case 2:
 				Toast.makeText(LoginActivity.this,
@@ -240,11 +241,20 @@ public class LoginActivity extends ActionBarActivity {
 		accountDao.addStudent(student);
 	}
 
+	
+	void enterMian(){
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+		overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out); 
+		this.finish();
+		
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.getItemId() == android.R.id.home) {
-			onBackPressed();
+			enterMian();
 		}
 		return super.onOptionsItemSelected(item);
 	}
