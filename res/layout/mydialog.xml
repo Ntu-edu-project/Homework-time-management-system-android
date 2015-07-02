@@ -30,7 +30,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="提交确认"
+        android:text="@string/push_confirm"
         android:textSize="18sp" />
 
 </RelativeLayout>

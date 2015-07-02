@@ -3,18 +3,8 @@
     <style name="AppTheme" parent="@style/AppBaseTheme" />
 
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
-
-        <!-- toolbar（actionbar）颜色 -->
-        <item name="colorPrimary">@color/theme_blue</item>
-        <!-- 状态栏颜色 -->
-        <item name="colorPrimaryDark">@color/theme_blue_dark</item>
-        <!-- 窗口的背景颜色 -->
-        <item name="android:windowBackground">@android:color/white</item>
-        <!-- SearchView -->
-        <item name="searchViewStyle">@style/MySearchViewStyle</item>
-        <item name="android:windowContentOverlay">@null</item>
-        
-        
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="ThemeWithActionBar" parent="Theme.AppCompat.Light">
@@ -25,6 +15,7 @@
         <item name="android:windowBackground">@android:color/white</item>
         <item name="actionBarStyle">@style/MyActionBar</item>
         <item name="android:windowContentOverlay">@null</item>
+ 
     </style>
 
     <!-- ActionBar styles -->

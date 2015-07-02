@@ -6,12 +6,6 @@ import android.os.Looper;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
-/**
- * 双击退出 创建日期 2014-05-12
- * 
- * @author 火蚁 (http://my.oschina.net/LittleDY)
- * 
- */
 public class DoubleClickExitHelper {
 
 	private final Activity mActivity;

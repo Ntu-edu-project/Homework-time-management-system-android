@@ -42,7 +42,7 @@ public class SettingActivity extends ActionBarActivity {
 	private String url;
 	private String info;
 
-	//下载
+	// 下载
 	private DownloadManager dm;
 	private Request request;
 	private long enqueue;
@@ -55,6 +55,8 @@ public class SettingActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		// Display the fragment as the main content.
+		// 去除阴影
+		getSupportActionBar().setElevation(0);
 
 		dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
 		receiver = new DownloadCompleteReceiver();
@@ -108,68 +110,70 @@ public class SettingActivity extends ActionBarActivity {
 			progressDialog.cancel();
 			switch (result) {
 
-			case 0:
-				Toast.makeText(getApplicationContext(),
-						getResources().getString(R.string.net_error),
-						Toast.LENGTH_SHORT).show();
-				break;
-			case 1:
-
-				if (getCurrentVersion().equals(new_version)) {
-
+				case 0 :
 					Toast.makeText(getApplicationContext(),
-							getResources().getString(R.string.is_new),
+							getResources().getString(R.string.net_error),
 							Toast.LENGTH_SHORT).show();
-				} else {
-					if (!isFinishing()) {
-						new AlertDialog.Builder(SettingActivity.this)
-								.setTitle(
-										getResources().getString(
-												R.string.is_old)
-												+ "V" + new_version)
-								.setMessage(info)
-								.setNegativeButton(
-										getResources().getString(
-												R.string.cancle),
-										new DialogInterface.OnClickListener() {
-											@Override
-											public void onClick(
-													DialogInterface dialog,
-													int which) {
+					break;
+				case 1 :
 
-											}
-										})
-								.setPositiveButton(
-										getResources().getString(R.string.down),
-										new DialogInterface.OnClickListener() {
-											@Override
-											public void onClick(
-													DialogInterface dialog,
-													int which) {
-												String sdpath = Environment
-														.getExternalStorageDirectory()
-														+ "/";
-												File file = new File(
-														sdpath
-																+ Environment.DIRECTORY_DOWNLOADS,
-														app_name);
-												if (file.exists()) {
-													file.delete();
+					if (getCurrentVersion().equals(new_version)) {
+
+						Toast.makeText(getApplicationContext(),
+								getResources().getString(R.string.is_new),
+								Toast.LENGTH_SHORT).show();
+					} else {
+						if (!isFinishing()) {
+							new AlertDialog.Builder(SettingActivity.this)
+									.setTitle(
+											getResources().getString(
+													R.string.is_old)
+													+ "V" + new_version)
+									.setMessage(info)
+									.setNegativeButton(
+											getResources().getString(
+													R.string.cancle),
+											new DialogInterface.OnClickListener() {
+												@Override
+												public void onClick(
+														DialogInterface dialog,
+														int which) {
+
 												}
-												request = new Request(Uri
-														.parse(url));
-												request.setDestinationInExternalPublicDir(
-														Environment.DIRECTORY_DOWNLOADS,
-														app_name);
-												request.setTitle(app_name);
-												enqueue = dm.enqueue(request);
+											})
+									.setPositiveButton(
+											getResources().getString(
+													R.string.down),
+											new DialogInterface.OnClickListener() {
+												@Override
+												public void onClick(
+														DialogInterface dialog,
+														int which) {
+													String sdpath = Environment
+															.getExternalStorageDirectory()
+															+ "/";
+													File file = new File(
+															sdpath
+																	+ Environment.DIRECTORY_DOWNLOADS,
+															app_name);
+													if (file.exists()) {
+														file.delete();
+													}
+													request = new Request(Uri
+															.parse(url));
+													request.setDestinationInExternalPublicDir(
+															Environment.DIRECTORY_DOWNLOADS,
+															app_name);
+													request.setTitle(app_name);
+													enqueue = dm
+															.enqueue(request);
 
-											}
-										}).show();
+												}
+											}).show();
+						}
 					}
-				}
 
-				break;
+					break;
 			}
 		}
 

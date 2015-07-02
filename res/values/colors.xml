@@ -11,7 +11,6 @@
     <color name="theme_blue">#6699FF</color>
     <color name="theme_blue_dark">#3A5FCD</color>
     <color name="background_tab_pressed">#6633B5E5</color>
-
     <color name="white">#ffffffff</color>
 
 </resources>

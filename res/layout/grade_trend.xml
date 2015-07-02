@@ -5,22 +5,22 @@
     android:layout_height="fill_parent" >
 
     <TextView
-        android:id="@+id/time_tv"
+        android:id="@+id/grade_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="18dp"
         android:layout_marginTop="14dp"
-        android:text="@string/time_trend"
+        android:text="@string/grade_trend"
         android:textColor="@android:color/tertiary_text_dark"
         android:textSize="16sp" />
 
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/time_tv"
-        android:layout_below="@+id/time_tv"
+        android:layout_alignLeft="@+id/grade_tv"
+        android:layout_below="@+id/grade_tv"
         android:orientation="vertical" >
 
         <com.anjuke.library.uicomponent.chart.bessel.BesselChart
@@ -30,10 +30,12 @@
             android:background="@android:color/white"
             app:verticalAxisPosition="right" />
 
-        <!-- 遮盖图表拦截左右滑动事件 -->        <LinearLayout
+        <!-- 遮盖图表拦截左右滑动事件 -->
+
+        <LinearLayout
             android:id="@+id/front_layout"
             android:layout_width="fill_parent"
-            android:layout_height="200dp"
+            android:layout_height="400dp"
             android:orientation="horizontal" >
         </LinearLayout>
     </FrameLayout>

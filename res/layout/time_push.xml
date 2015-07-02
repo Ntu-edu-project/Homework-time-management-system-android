@@ -34,9 +34,8 @@
 
             <EditText
                 android:id="@+id/et_hour_chinese"
-                android:layout_width="wrap_content"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
-                android:ems="3"
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="2" />
@@ -48,9 +47,8 @@
 
             <EditText
                 android:id="@+id/et_minute_chinese"
-                android:layout_width="wrap_content"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
-                android:ems="3"
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="2" />
@@ -94,9 +92,8 @@
 
             <EditText
                 android:id="@+id/et_hour_math"
-                android:layout_width="wrap_content"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
-                android:ems="3"
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="2" />
@@ -108,9 +105,8 @@
 
             <EditText
                 android:id="@+id/et_minute_math"
-                android:layout_width="wrap_content"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
-                android:ems="3"
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="2" />
@@ -154,9 +150,8 @@
 
             <EditText
                 android:id="@+id/et_hour_english"
-                android:layout_width="wrap_content"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
-                android:ems="3"
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="2" />
@@ -168,9 +163,8 @@
 
             <EditText
                 android:id="@+id/et_minute_english"
-                android:layout_width="wrap_content"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
-                android:ems="3"
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="2" />

@@ -1,13 +1,12 @@
 package com.ntuedu.homeworktimemanager.db;
 
-import com.ntuedu.homeworktimemanager.model.Student;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-public class AccountDaoImpl implements AccountDao {
+import com.ntuedu.homeworktimemanager.model.Student;
 
+public class AccountDaoImpl implements AccountDao {
 
 	private DBOpenHelper dbOpenHelper;
 
@@ -19,8 +18,11 @@ public class AccountDaoImpl implements AccountDao {
 	public void addStudent(Student student) {
 		// TODO Auto-generated method stub
 		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
-		db.execSQL("insert into student(Sno, Sname) values(?,?)", new Object[] {
-				student.getsNo(), student.getsName() });
+		db.execSQL(
+				"insert into student(Sno, Sname, Tel, GradeNo, ClassNo) values(?,?,?,?,?)",
+				new Object[]{student.getsNo(), student.getsName(),
+						student.getTel(), student.getGradeNo(),
+						student.getClassNo()});
 		db.close();
 	}
 
@@ -29,6 +31,8 @@ public class AccountDaoImpl implements AccountDao {
 		// TODO Auto-generated method stub
 		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
 		db.execSQL("DELETE FROM student");
+		db.execSQL("DELETE FROM homeworktime");
+		db.execSQL("DELETE FROM selftestgrades");
 		db.close();
 	}
 
@@ -40,7 +44,10 @@ public class AccountDaoImpl implements AccountDao {
 		if (cursor.moveToFirst()) {
 			String sNo = cursor.getString(cursor.getColumnIndex("Sno"));
 			String sName = cursor.getString(cursor.getColumnIndex("Sname"));
-			Student student = new Student(sNo, sName);
+			String tel = cursor.getString(cursor.getColumnIndex("Tel"));
+			int gradeNo = cursor.getInt(cursor.getColumnIndex("GradeNo"));
+			int classNo = cursor.getInt(cursor.getColumnIndex("ClassNo"));
+			Student student = new Student(sNo, sName, tel, gradeNo, classNo);
 			db.close();
 			return student;
 		}

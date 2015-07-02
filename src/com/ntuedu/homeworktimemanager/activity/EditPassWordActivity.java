@@ -9,9 +9,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -34,22 +31,24 @@ import com.ntuedu.homeworktimemanager.Constant;
 import com.ntuedu.homeworktimemanager.R;
 import com.ntuedu.homeworktimemanager.db.AccountDao;
 import com.ntuedu.homeworktimemanager.db.AccountDaoImpl;
-import com.ntuedu.homeworktimemanager.model.Student;
 import com.ntuedu.homeworktimemanager.util.MyHttpClient;
 
 @SuppressWarnings("deprecation")
-public class LoginActivity extends ActionBarActivity {
+public class EditPassWordActivity extends ActionBarActivity {
 
-	private EditText etSno;
-	private EditText etPw;
+	private EditText et_password;
+	private EditText et_password2;
+	private Button btConfirm;
 
-	private TextView tvSno;
 	private TextView tvPw;
+	private TextView tvPw2;
 
-	private Button btLogin;
+	private String FLAG = "editPassWord";
+
+	private String pw;
+	private String pw2;
 
 	private String sno;
-	private String pw;
 
 	private Animation shakeAnim;
 
@@ -57,49 +56,68 @@ public class LoginActivity extends ActionBarActivity {
 
 	AccountDao accountDao = new AccountDaoImpl(this);
 
-	String FLAG = "login";
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
+		setContentView(R.layout.activity_edit_password);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-		// x轴抖动动画
-		shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake_x);
+		// 去除阴影
+		getSupportActionBar().setElevation(0);
 
 		progressDialog = new ProgressDialog(this);
 
-		etSno = (EditText) findViewById(R.id.etSno);
-		etPw = (EditText) findViewById(R.id.etPw);
+		et_password = (EditText) findViewById(R.id.etPw);
+		et_password2 = (EditText) findViewById(R.id.etPw2);
+		btConfirm = (Button) findViewById(R.id.btConfirm);
 
-		tvSno = (TextView) findViewById(R.id.tvSno);
-		tvPw = (TextView) findViewById(R.id.tvPw);
+		tvPw = (TextView) findViewById(R.id.tvSno);
+		tvPw2 = (TextView) findViewById(R.id.tvPw);
 
-		etSno.addTextChangedListener(new TextWatcher() {
+		sno = accountDao.lookupStudent().getsNo();
 
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				// TODO Auto-generated method stub
+		shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake_x);
 
-			}
+		btConfirm.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
+			public void onClick(View v) {
 				// TODO Auto-generated method stub
 
-			}
+				pw = et_password.getText().toString();
+				pw2 = et_password2.getText().toString();
 
-			@Override
-			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
-				tvSno.setVisibility(View.GONE);
+				if (pw.isEmpty() && pw2.isEmpty()) {
+					tvPw.setVisibility(View.VISIBLE);
+					tvPw2.setVisibility(View.VISIBLE);
+					tvPw.startAnimation(shakeAnim);
+					tvPw2.startAnimation(shakeAnim);
+					return;
+				}
+
+				if (pw.isEmpty()) {
+					tvPw.setVisibility(View.VISIBLE);
+					tvPw.startAnimation(shakeAnim);
+					return;
+				}
+
+				if (pw2.isEmpty()) {
+					tvPw2.setVisibility(View.VISIBLE);
+					tvPw2.startAnimation(shakeAnim);
+					return;
+				}
+
+				if (!pw.equals(pw2)) {
+					Toast.makeText(EditPassWordActivity.this, "两次密码不一致", 1000)
+							.show();
+					return;
+				}
+
+				new EditPassWord().execute();
+
 			}
 		});
 
-		etPw.addTextChangedListener(new TextWatcher() {
+		et_password.addTextChangedListener(new TextWatcher() {
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
@@ -122,45 +140,32 @@ public class LoginActivity extends ActionBarActivity {
 			}
 		});
 
-		btLogin = (Button) findViewById(R.id.btlogin);
-
-		btLogin.setOnClickListener(new View.OnClickListener() {
+		et_password2.addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void onClick(View v) {
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
 				// TODO Auto-generated method stub
-				sno = etSno.getText().toString();
-				pw = etPw.getText().toString();
 
-				if (sno.isEmpty() && pw.isEmpty()) {
-					tvSno.setVisibility(View.VISIBLE);
-					tvPw.setVisibility(View.VISIBLE);
-					tvPw.startAnimation(shakeAnim);
-					tvSno.startAnimation(shakeAnim);
-					return;
-				}
+			}
 
-				if (sno.isEmpty()) {
-					tvSno.setVisibility(View.VISIBLE);
-					tvPw.startAnimation(shakeAnim);
-					return;
-				}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
 
-				if (pw.isEmpty()) {
-					tvPw.setVisibility(View.VISIBLE);
-					tvPw.startAnimation(shakeAnim);
-					return;
-				}
+			}
 
-				Login login = new Login();
-				login.execute();
-
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				tvPw2.setVisibility(View.GONE);
 			}
 		});
 
 	}
 
-	private class Login extends AsyncTask<Object, Integer, Integer> {
+	private class EditPassWord extends AsyncTask<Object, Integer, Integer> {
 		@Override
 		protected void onPreExecute() {
 			progressDialog.setMessage(getResources().getString(
@@ -182,15 +187,16 @@ public class LoginActivity extends ActionBarActivity {
 			progressDialog.cancel();
 			switch (result) {
 				case 0 :
-					Toast.makeText(LoginActivity.this,
+					Toast.makeText(EditPassWordActivity.this,
 							getResources().getString(R.string.login_error),
 							Toast.LENGTH_SHORT).show();
 					break;
 				case 1 :
-					enterMian();
+					enterLogin();
+					accountDao.clearStudent();
 					break;
 				case 2 :
-					Toast.makeText(LoginActivity.this,
+					Toast.makeText(EditPassWordActivity.this,
 							getResources().getString(R.string.net_error),
 							Toast.LENGTH_SHORT).show();
 					break;
@@ -221,7 +227,7 @@ public class LoginActivity extends ActionBarActivity {
 			}
 
 			if (!result.equals("0")) {
-				doSaveLocal(result);
+
 			}
 
 			return result.equals("0") ? 0 : 1;
@@ -231,21 +237,17 @@ public class LoginActivity extends ActionBarActivity {
 
 	}
 
-	public void doSaveLocal(String result) throws JSONException {
-		JSONArray array = new JSONArray(result);
-		JSONObject jsonObject = array.getJSONObject(0);
-		String sNo = jsonObject.get("sNo").toString();
-		String sName = jsonObject.get("sName").toString();
-		String tel = jsonObject.getString("tel");
-		int gradeNo = jsonObject.getInt("gradeNo");
-		int classNo = jsonObject.getInt("classNo");
-		Student student = new Student(sNo, sName, tel, gradeNo, classNo);
-		// 存入本地数据
-		accountDao.addStudent(student);
+	void enterAccount() {
+		Intent intent = new Intent(this, AccountActivity.class);
+		startActivity(intent);
+		overridePendingTransition(android.R.anim.fade_in,
+				android.R.anim.fade_out);
+		this.finish();
+
 	}
 
-	void enterMian() {
-		Intent intent = new Intent(this, MainActivity.class);
+	void enterLogin() {
+		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 		overridePendingTransition(android.R.anim.fade_in,
 				android.R.anim.fade_out);
@@ -257,7 +259,8 @@ public class LoginActivity extends ActionBarActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			enterMian();
+			enterAccount();
+			this.finish();
 		}
 
 		return super.onKeyDown(keyCode, event);
@@ -267,8 +270,10 @@ public class LoginActivity extends ActionBarActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.getItemId() == android.R.id.home) {
-			enterMian();
+			enterAccount();
+			this.finish();
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 }

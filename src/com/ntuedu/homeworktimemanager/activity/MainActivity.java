@@ -27,7 +27,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ntuedu.homeworktimemanager.R;
 import com.ntuedu.homeworktimemanager.db.AccountDao;
@@ -36,6 +35,7 @@ import com.ntuedu.homeworktimemanager.fragment.GradeFrg;
 import com.ntuedu.homeworktimemanager.fragment.HomeWorkTimeFrg;
 import com.ntuedu.homeworktimemanager.fragment.NoAccountFrg;
 import com.ntuedu.homeworktimemanager.fragment.TimeAndGradeFrg;
+import com.ntuedu.homeworktimemanager.util.UIUtil;
 import com.ntuedu.homeworktimemanager.widget.DoubleClickExitHelper;
 import com.ntuedu.homeworktimemanager.widget.PagerSlidingTabStrip;
 
@@ -54,7 +54,7 @@ public class MainActivity extends ActionBarActivity {
 	private ArrayList<HashMap<String, Object>> listItems;
 	private SimpleAdapter listItemAdapter;
 
-	DoubleClickExitHelper clickExitHelper ;
+	DoubleClickExitHelper clickExitHelper;
 
 	AccountDao accountDao = new AccountDaoImpl(this);
 
@@ -62,11 +62,11 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.homework_time_main);
+		UIUtil.setStatusBarTextColor(this, 0);
 		initViews();
 		refreshAccount();
 		clickExitHelper = new DoubleClickExitHelper(MainActivity.this);
 	}
-
 	@SuppressLint("ShowToast")
 	private void initViews() {
 		mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -75,17 +75,21 @@ public class MainActivity extends ActionBarActivity {
 		mToolbar.setTitleTextColor(Color.WHITE);
 		setSupportActionBar(mToolbar);
 
-		/* 菜单的监听可以在toolbar里设置，也可以像ActionBar那样，通过下面的两个回调方法来处理 */
+		/** 菜单的监听可以在toolbar里设置，也可以像ActionBar那样，通过下面的两个回调方法来处理 */
 		mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 				switch (item.getItemId()) {
-				case R.id.action_settings:
-					Toast.makeText(MainActivity.this, "action_settings", 0)
-							.show();
-					break;
-				default:
-					break;
+					case R.id.action_settings :
+						Intent intent = new Intent(Intent.ACTION_SEND);
+						intent.setType("image/*");
+						intent.putExtra(Intent.EXTRA_SUBJECT, "分享");
+						intent.putExtra(Intent.EXTRA_TEXT, "作业时间管理系统很棒哦!!!");
+						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						startActivity(Intent.createChooser(intent, getTitle()));
+						break;
+					default :
+						break;
 				}
 				return true;
 			}
@@ -111,9 +115,8 @@ public class MainActivity extends ActionBarActivity {
 				R.drawable.ic_drawer_exit);
 
 		listItemAdapter = new SimpleAdapter(this, listItems,
-				R.layout.siderbar_lisetview_item, new String[] { "ItemTitle",
-						"ItemImage" }, new int[] { R.id.ItemTitle,
-						R.id.ItemImage });
+				R.layout.siderbar_lisetview_item, new String[]{"ItemTitle",
+						"ItemImage"}, new int[]{R.id.ItemTitle, R.id.ItemImage});
 
 		lvLeftMenu.setAdapter(listItemAdapter);
 		lvLeftMenu.setOnItemClickListener(new OnItemClickListener() {
@@ -122,31 +125,35 @@ public class MainActivity extends ActionBarActivity {
 					int position, long arg3) {
 				Intent intent = null;
 				switch (position) {
-				case 0:
+					case 0 :
 
-					if (accountDao.lookupStudent() != null) {
-						intent = new Intent(MainActivity.this,
-								AccountActivity.class);
-					} else {
-						intent = new Intent(MainActivity.this,
-								LoginActivity.class);
-					}
-					startActivity(intent);
-					MainActivity.this.finish();
-					return;
-				case 1:
-					intent = new Intent(MainActivity.this,
-							SettingActivity.class);
+						if (accountDao.lookupStudent() != null) {
+							intent = new Intent(MainActivity.this,
+									AccountActivity.class);
+							// startActivityForResult(intent, 1);
 
-					break;
-				case 2:
-					intent = new Intent(MainActivity.this, HelpActivity.class);
-					break;
-				case 3:
-					MainActivity.this.finish();
-					return;
-				default:
-					break;
+						} else {
+							intent = new Intent(MainActivity.this,
+									LoginActivity.class);
+							// startActivityForResult(intent, 3);
+						}
+						startActivity(intent);
+						MainActivity.this.finish();
+						return;
+					case 1 :
+						intent = new Intent(MainActivity.this,
+								SettingActivity.class);
+
+						break;
+					case 2 :
+						intent = new Intent(MainActivity.this,
+								HelpActivity.class);
+						break;
+					case 3 :
+						MainActivity.this.finish();
+						return;
+					default :
+						break;
 				}
 				startActivity(intent);
 			}
@@ -177,6 +184,7 @@ public class MainActivity extends ActionBarActivity {
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 
 		mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+		mViewPager.setOffscreenPageLimit(3);
 
 		mPagerSlidingTabStrip.setViewPager(mViewPager);
 		mPagerSlidingTabStrip
@@ -269,7 +277,7 @@ public class MainActivity extends ActionBarActivity {
 		return super.onKeyDown(keyCode, event);
 	}
 
-	/* ***************FragmentPagerAdapter***************** */
+	/**************** FragmentPagerAdapter***************** */
 	public class MyPagerAdapter extends FragmentPagerAdapter {
 
 		private final String[] TITLES = getResources().getStringArray(
@@ -296,19 +304,26 @@ public class MainActivity extends ActionBarActivity {
 				return new NoAccountFrg();
 			}
 			switch (position) {
-			case 0:
-				return new HomeWorkTimeFrg(mViewPager, accountDao
-						.lookupStudent().getsNo());
-			case 1:
-				return new GradeFrg();
-			case 2:
-				return new TimeAndGradeFrg();
-			default:
-				return null;
+				case 0 :
+					return new HomeWorkTimeFrg(mViewPager, accountDao
+							.lookupStudent().getsNo());
+				case 1 :
+					return new GradeFrg(mViewPager, accountDao.lookupStudent()
+							.getsNo());
+				case 2 :
+					return new TimeAndGradeFrg();
+				default :
+					return null;
 			}
 
 		}
 
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+
+	}
 }

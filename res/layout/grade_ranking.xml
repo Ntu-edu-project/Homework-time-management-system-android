@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/grade_ranking_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="14dp"
+        android:text="@string/grade_ranking"
+        android:textColor="@android:color/tertiary_text_dark"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:id="@+id/grade_ranking_layput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/grade_ranking_tv"
+        android:layout_below="@+id/grade_ranking_tv"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/testNotv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:text="考试编号" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="20dp"
+            android:text="语文" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="数学" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="英语" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/grade_ranking_lv"
+        android:layout_width="fill_parent"
+        android:layout_height="140dp"
+        android:layout_alignLeft="@+id/grade_ranking_tv"
+        android:layout_below="@+id/grade_ranking_layput"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical" />
+
+</RelativeLayout>
